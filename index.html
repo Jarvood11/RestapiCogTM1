@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta http-equiv=Content-Type content="text/html;charset=utf-8">
+    <style>
+        .prokrutka {
+            height: 200px; /* высота нашего блока */
+            width: 100%; /* ширина нашего блока */
+            background: #fff; /* цвет фона, белый */
+            border: 1px solid #C1C1C1; /* размер и цвет границы блока */
+            overflow-x: scroll; /* прокрутка по горизонтали */
+            overflow-y: scroll; /* прокрутка по вертикали */
+        }
+        .okno {
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            border: 3px solid #0000cc;
+            border-radius: 10px;
+            color: #0000cc;
+            transition: opacity 0.3s, visibility 10.3s linear 0.3s;
+        }
+    </style>
+
+    <title>Система синхронизации моделей (источник)</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <script src="jquery.min.js"></script>
+    <script src="rest.js" ></script>
+    <link rel="stylesheet" href="main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+</head>
+<body>
+<h1>Система синхронизации моделей (источник)</h1>
+
+<div class = "users">
+        <table style="width:50%;">
+            <tr>
+                <td style="text-align: right; width:30%;"><strong>Логин:</strong></td>
+                <td><input maxlength="25" name="login" class = "login" placeholder="admin" value="admin" style="width: 100%;"></td>
+            </tr>
+            <tr>
+                <td style="text-align: right;"><strong>Пароль:</strong></td>
+                <td><input type="password" maxlength="25" name="password" class = "password"  placeholder="apple" value="apple" style="width: 100%;"></td>
+            </tr>
+            <tr>
+                <td style="text-align: right;"><strong>Пространство имён:</strong></td>
+                <td><input maxlength="25" name="AD" class = "AD" placeholder="Если нет, оставить пустым"  style="width: 100%;" /></td>
+            </tr>
+            <tr>
+                <td style="text-align: right;"><strong>Источник:</strong></td>
+                <td><input class="sourcemodel" placeholder="https://srv-ibmstudsale.axapta.local:13556/api/v1/" value="https://srv-ibmstudsale.axapta.local:13556/api/v1/"  style="width: 100%;"></td>
+                <!--<td><input class="sourcemodel" placeholder="http://srv-ibmstudsale.axapta.local:4551/api/v1/" value="http://srv-ibmstudsale.axapta.local:4551/api/v1/"  style="width: 100%;"></td>-->
+            </tr>
+            <tr>
+                <td style="text-align: center;"><button class = "buttonconnectrepo" onclick="connectsource()" style="width:90%;"> Соедениться с репозиторем</button></td>
+                <td><div class="okno" id="connectsource_output" style="opacity: 0;"></div></td>
+            </tr>
+        </table>
+</div>
+<div id="json_files" style="border: 1px solid red; width: 80%; height:200px; padding: 5px; overflow-x: scroll; overflow-y: scroll;"></div>
+<button onclick="upload()">Загрузить в репозиторий</button>
+    <div class ="clone">
+        <h1>Панель работы с источником данных</h1>
+<!--
+        <div style="margin:5px; border:1px solid #4c9141;padding: 5px; width: 50%;">
+            <a href="#" onclick="toggleBtn(this)">[+]</a><button>Команда</button>
+            <div style="margin: 5px; display: none;">
+                <div class="prokrutka">rest ответ</div>
+            </div>
+        </div>
+-->
+<!--<panel onclick="comit()">Сделать коммит</panel>-->
+
+        <!--<div style="border: 1px solid grey; padding: 7px 12px 7px 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; cursor: pointer;" onclick="toggle(this)">
+                <div><button>Command</button></div>
+                <div class="toggle_status">+</div>
+            </div>
+            <div class="subpanel" style="background: red;">asd</div>
+        </div>-->
+
+            <!--<button class = "clone" onclick="comit(this)">Сделать комит в репозиторий</button>
+            <div class="prokrutka" id="comit_output"></div>-->
+
+        <div style="margin:5px; border:1px solid #4c9141;padding: 5px; width: 50%;">
+            <a href="#" onclick="toggleBtn(this)">[+]</a>
+            <button class = "clone" onclick="comit(this)">Сделать комит в репозиторий</button>
+            <div style="margin: 5px; display: none;" class="prokrutka_container">
+                <div class="prokrutka"></div>
+            </div>
+        </div>
+
+        <div style="margin:5px; border:1px solid #4c9141;padding: 5px; width: 50%;">
+            <a href="#" onclick="toggleBtn(this)">[+]</a>
+            <button class = "clone" onclick="GitPull(this)">Сделать пул-запрос из репозитория</button>
+            <div style="margin: 5px; display: none;" class="prokrutka_container">
+                <div class="prokrutka"></div>
+            </div>
+        </div>
+
+        <div style="margin:5px; border:1px solid #4c9141;padding: 5px; width: 50%;">
+            <a href="#" onclick="toggleBtn(this)">[+]</a>
+            <button class = "clone" onclick="getobjecttest(this)">Проверить содержимое куба</button>
+            <div style="margin: 5px; display: none;" class="prokrutka_container">
+                <div class="prokrutka"></div>
+            </div>
+        </div>
+
+        <div style="margin:5px; border:1px solid #4c9141;padding: 5px; width: 50%;">
+            <a href="#" onclick="toggleBtn(this)">[+]</a>
+            <button class = "clone" onclick="getobjecttest2(this)">Проверить содержимое куба2</button>
+            <div style="margin: 5px; display: none;" class="prokrutka_container">
+                <div class="prokrutka"></div>
+            </div>
+        </div>
+
+        <div style="margin:5px; border:1px solid #4c9141;padding: 5px; width: 50%;">
+            <a href="#" onclick="toggleBtn(this)">[+]</a>
+            <button class = "clone" onclick="getobjecttest3(this)">Проверить содержимое куба3</button>
+            <div style="margin: 5px; display: none;" class="prokrutka_container">
+                <div class="prokrutka"></div>
+            </div>
+        </div>
+
+        <div style="margin:5px; border:1px solid #4c9141;padding: 5px; width: 50%;">
+            <a href="#" onclick="toggleBtn(this)">[+]</a>
+            <button class = "clone" onclick="getobjecttest4(this)">Проверить содержимое куба4</button>
+            <div style="margin: 5px; display: none;" class="prokrutka_container">
+                <div class="prokrutka"></div>
+            </div>
+        </div>
+
+    </div>
+<p><a href="targetModel.html">Для работы с моделью-получателем</a></p>
+
+
+</body>
+</html>
