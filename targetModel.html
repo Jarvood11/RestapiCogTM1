@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Система синхронизации моделей (получатель)</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <script src="jquery.min.js"></script>
+    <script src="rest.js" ></script>
+    <link rel="stylesheet" href="main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+</head>
+<body>
+<h1>Система синхронизации моделей (получатель)</h1>
+<div class = "users">
+    <form action="handler.php">
+        <p><strong>Логин:</strong>
+            <input maxlength="25" size="40" name="login" class = "login" placeholder="admin" value="admin"></p>
+        <p><strong>Пароль:</strong>
+            <input type="password" maxlength="25" size="40" name="password" class = "password"  placeholder="apple" value="apple"></p>
+        <strong>Пространство имён:</strong>
+        <input maxlength="25" size="40" name="AD" class = "AD" placeholder="Если нет, оставить пустым" /></p>
+    </form>
+</div>
+
+<div class ="sourceblock">
+    <label>
+        <h1>Введите источник</h1>
+        <textarea class = "sourcemodel" placeholder="https://srv-ibmstudsale.axapta.local:13556/api/v1/">https://srv-ibmstudsale.axapta.local:13556/api/v1/</textarea>
+    </label>
+    <div>
+        <button class = "buttonconnectrepo" onclick="connectsource()"> Соедениться с репозиторем</button>
+    </div>
+</div>
+
+
+<div class ="clone">
+    <label>
+        <h1>Пул</h1>
+    </label>
+    <div>
+        <button class = "clone" onclick="GitPull()">Развернуть доработки</button>
+    </div>
+</div>
+
+
+</body>
+</html>
